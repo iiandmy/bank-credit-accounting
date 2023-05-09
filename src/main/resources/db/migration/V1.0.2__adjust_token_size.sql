@@ -1,0 +1,2 @@
+ALTER TABLE ba_refresh_token
+    ALTER COLUMN token TYPE VARCHAR(500)
