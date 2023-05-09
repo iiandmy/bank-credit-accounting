@@ -28,7 +28,8 @@ public class AuthenticationService implements UserDetailsService {
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new RuntimeException("User with such email is already exists");
         }
-        User createdUser = createUserFromRegistrationDto(dto);
+        System.out.println(dto.getPassword() + " " + dto.getEmail());
+        User createdUser = userRepository.save(createUserFromRegistrationDto(dto));
         roleRepository.findByName(StringConstants.ROLE_USER).get().getUserList().add(createdUser);
 
         return createdUser;
