@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Table(name = "user")
+@Table(name = "ba_user")
 @Entity
 @Getter
 @Setter
@@ -20,7 +20,18 @@ public class User {
     @OneToMany
     private List<Credit> creditList;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "ba_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roleList;
+
+    @Column(name = "f_name")
     private String firstName;
+    @Column(name = "l_name")
     private String lastName;
+    private String email;
     private String passwordHash;
 }

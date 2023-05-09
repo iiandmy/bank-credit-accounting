@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "credit")
+@Table(name = "ba_credit")
 @Getter
 @Setter
 @Builder
