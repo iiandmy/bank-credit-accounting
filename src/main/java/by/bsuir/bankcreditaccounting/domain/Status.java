@@ -1,6 +1,6 @@
 package by.bsuir.bankcreditaccounting.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity

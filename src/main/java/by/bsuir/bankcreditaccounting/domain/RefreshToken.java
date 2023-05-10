@@ -1,7 +1,8 @@
 package by.bsuir.bankcreditaccounting.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ba_refresh_token")

@@ -7,7 +7,6 @@ import by.bsuir.bankcreditaccounting.dto.creditCreation.CreditCreationResponseDt
 import by.bsuir.bankcreditaccounting.persistance.CreditRepository;
 import by.bsuir.bankcreditaccounting.persistance.StatusRepository;
 import by.bsuir.bankcreditaccounting.persistance.UserRepository;
-import by.bsuir.bankcreditaccounting.security.UserDetailsEntity;
 import by.bsuir.bankcreditaccounting.util.StringConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor

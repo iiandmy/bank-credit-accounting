@@ -7,7 +7,7 @@ import by.bsuir.bankcreditaccounting.persistance.RoleRepository;
 import by.bsuir.bankcreditaccounting.persistance.StatusRepository;
 import by.bsuir.bankcreditaccounting.persistance.UserRepository;
 import by.bsuir.bankcreditaccounting.util.StringConstants;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

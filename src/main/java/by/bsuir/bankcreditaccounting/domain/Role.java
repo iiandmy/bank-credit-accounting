@@ -1,11 +1,10 @@
 package by.bsuir.bankcreditaccounting.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role implements GrantedAuthority {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,9 +22,4 @@ public class Role implements GrantedAuthority {
 
     @ManyToMany(mappedBy = "roleList")
     private Set<User> userList;
-
-    @Override
-    public String getAuthority() {
-        return getName();
-    }
 }
