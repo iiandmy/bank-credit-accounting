@@ -28,7 +28,7 @@ public class JwtTokenService {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(2, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(2, ChronoUnit.HOURS))
                 .subject(userDetails.getUsername())
                 .claim("scope", scope)
                 .build();
@@ -40,6 +40,7 @@ public class JwtTokenService {
         String scope = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
+
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)

@@ -1,6 +1,7 @@
 package by.bsuir.bankcreditaccounting.config;
 
 import by.bsuir.bankcreditaccounting.service.AuthenticationService;
+import by.bsuir.bankcreditaccounting.util.StringConstants;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -63,11 +64,15 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf().disable()
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authentication/register").permitAll()
-                        .requestMatchers("/authentication/login").permitAll()
-                        .requestMatchers("/authentication/refresh").permitAll()
-                )
+                .authorizeHttpRequests()
+                .requestMatchers("/authentication/login").permitAll()
+                .requestMatchers("/credit/request").hasAuthority("SCOPE_usr")
+                .and()
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/authentication/register").permitAll()
+//                        .requestMatchers("/authentication/refresh").permitAll()
+//                        .requestMatchers("/credit/request").hasAuthority(StringConstants.ROLE_USER)
+//                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer :: jwt )
                 .build();

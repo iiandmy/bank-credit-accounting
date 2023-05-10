@@ -18,6 +18,7 @@ public class Credit {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToOne

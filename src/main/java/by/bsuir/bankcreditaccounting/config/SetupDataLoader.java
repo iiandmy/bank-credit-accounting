@@ -1,8 +1,10 @@
 package by.bsuir.bankcreditaccounting.config;
 
 import by.bsuir.bankcreditaccounting.domain.Role;
+import by.bsuir.bankcreditaccounting.domain.Status;
 import by.bsuir.bankcreditaccounting.domain.User;
 import by.bsuir.bankcreditaccounting.persistance.RoleRepository;
+import by.bsuir.bankcreditaccounting.persistance.StatusRepository;
 import by.bsuir.bankcreditaccounting.persistance.UserRepository;
 import by.bsuir.bankcreditaccounting.util.StringConstants;
 import jakarta.transaction.Transactional;
@@ -21,6 +23,7 @@ import java.util.List;
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final StatusRepository statusRepository;
     private final PasswordEncoder passwordEncoder;
 
     private final String STANDARD_ADMIN_EMAIL = "admin@gmail.ru";
@@ -33,6 +36,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Role adminRole = createRoleIfNotFound(StringConstants.ROLE_ADMIN);
         Role userRole = createRoleIfNotFound(StringConstants.ROLE_USER);
+
+        createStatusIfNotFound(StringConstants.STATUS_PENDING);
+        createStatusIfNotFound(StringConstants.STATUS_ACTIVE);
+        createStatusIfNotFound(StringConstants.STATUS_PAID);
 
         User admin = createAdminIfNotFound(List.of(adminRole, userRole));
         adminRole.getUserList().add(admin);
@@ -50,10 +57,21 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                 )));
     }
 
+    private Status createStatusIfNotFound(String statusName) {
+        return statusRepository.findByName(statusName)
+                .orElseGet(() -> statusRepository.save(createStatus(statusName)));
+    }
+
     private Role createRoleIfNotFound(String roleName) {
         return roleRepository
                 .findByName(roleName)
                 .orElseGet(() -> roleRepository.save(createRole(roleName)));
+    }
+
+    private Status createStatus(String statusName) {
+        Status status = new Status();
+        status.setName(statusName);
+        return status;
     }
 
     private Role createRole(String roleName) {

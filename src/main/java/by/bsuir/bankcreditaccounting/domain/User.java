@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Credit> creditList;
 
     @ManyToMany(fetch = FetchType.EAGER)
