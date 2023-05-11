@@ -94,7 +94,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                 .lastName(lastName)
                 .roleList(roleList)
                 .passwordHash(passwordEncoder.encode(password))
-                .refreshTokenList(new ArrayList<>())
                 .creditList(new ArrayList<>())
                 .build();
     }

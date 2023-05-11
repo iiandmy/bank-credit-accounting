@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CreditCreationRequestDto {
-    private String startDate;
     private String expiringDate;
-    private Double rate;
+    private Long creditPlanId;
 }

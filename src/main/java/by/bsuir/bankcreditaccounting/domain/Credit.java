@@ -21,10 +21,13 @@ public class Credit {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "plan_id", referencedColumnName = "id")
+    private CreditPlan creditPlan;
+
     @OneToOne
     private Status status;
 
     private Date expiringDate;
     private Date startDate;
-    private Double rate;
 }

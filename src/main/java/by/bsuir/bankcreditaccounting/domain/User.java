@@ -28,9 +28,6 @@ public class User {
     )
     private List<Role> roleList;
 
-    @OneToMany(mappedBy = "user")
-    private List<RefreshToken> refreshTokenList;
-
     @Column(name = "f_name")
     private String firstName;
     @Column(name = "l_name")

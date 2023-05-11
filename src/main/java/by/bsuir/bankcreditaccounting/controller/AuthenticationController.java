@@ -2,9 +2,13 @@ package by.bsuir.bankcreditaccounting.controller;
 
 import by.bsuir.bankcreditaccounting.domain.User;
 import by.bsuir.bankcreditaccounting.dto.LoginRequestDto;
+import by.bsuir.bankcreditaccounting.dto.UserRegistrationDto;
+import by.bsuir.bankcreditaccounting.dto.UserResponseDto;
+import by.bsuir.bankcreditaccounting.mapper.UserMapper;
 import by.bsuir.bankcreditaccounting.security.jwt.JwtTokenProvider;
 import by.bsuir.bankcreditaccounting.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,5 +55,18 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<UserResponseDto> register(@RequestBody UserRegistrationDto registrationDto) {
+        return new ResponseEntity<>(
+                UserMapper.entityToDto(userService.register(User.builder()
+                        .firstName(registrationDto.getFirstName())
+                        .lastName(registrationDto.getLastName())
+                        .email(registrationDto.getEmail())
+                        .passwordHash(registrationDto.getPassword())
+                        .creditList(new ArrayList<>())
+                .build()
+        )), HttpStatus.CREATED);
     }
 }
