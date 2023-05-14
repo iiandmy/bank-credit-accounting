@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -19,6 +20,16 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
             throws IOException, ServletException {
+
+        if (!((HttpServletResponse) res).containsHeader("Access-Control-Allow-Origin"))
+            ((HttpServletResponse) res).addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        if (((HttpServletRequest) req).getMethod().equals("OPTIONS")) {
+            System.out.println("OPTIONS");
+            ((HttpServletResponse) res).addHeader("Access-Control-Allow-Methods", "*");
+            ((HttpServletResponse) res).addHeader("Access-Control-Allow-Headers", "*");
+            ((HttpServletResponse) res).addHeader("Access-Control-Allow-Credentials", "true");
+            ((HttpServletResponse) res).setStatus(200);
+        }
 
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
         if (token != null && jwtTokenProvider.validateToken(token)) {

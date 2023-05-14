@@ -7,6 +7,7 @@ import by.bsuir.bankcreditaccounting.dto.UserResponseDto;
 import by.bsuir.bankcreditaccounting.mapper.UserMapper;
 import by.bsuir.bankcreditaccounting.security.jwt.JwtTokenProvider;
 import by.bsuir.bankcreditaccounting.service.UserService;
+import by.bsuir.bankcreditaccounting.util.StringConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,10 @@ public class AuthenticationController {
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("token", token);
+            if (user.getRoleList().stream()
+                    .anyMatch(role -> role.getName().equals(StringConstants.ROLE_ADMIN))) {
+                response.put("is_admin", true);
+            }
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
