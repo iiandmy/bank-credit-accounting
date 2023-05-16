@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException();
+        }
         Role roleUser = roleRepository.findByName("ROLE_USER").orElseThrow();
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);

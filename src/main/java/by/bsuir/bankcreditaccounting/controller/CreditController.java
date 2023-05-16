@@ -1,5 +1,6 @@
 package by.bsuir.bankcreditaccounting.controller;
 
+import by.bsuir.bankcreditaccounting.domain.Credit;
 import by.bsuir.bankcreditaccounting.domain.User;
 import by.bsuir.bankcreditaccounting.dto.StatusResponseDto;
 import by.bsuir.bankcreditaccounting.dto.credit.CreditResponse;
@@ -49,6 +50,17 @@ public class CreditController {
                         .map(CreditMapper::planToDto)
                         .collect(Collectors.toList()),
                 HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/pay/{creditId}")
+    public ResponseEntity<CreditResponse> changeCreditStatus(
+            @PathVariable Long creditId
+    ) {
+        Credit credit = creditService.changeCreditStatus(creditId, 3L);
+
+        return new ResponseEntity<>(
+                CreditMapper.toDto(credit), HttpStatus.OK
         );
     }
 
